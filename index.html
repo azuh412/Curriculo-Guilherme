@@ -170,40 +170,143 @@
             font-family: var(--font-code);
         }
 
-        .hero p {
-            color: var(--text-muted);
-            font-size: 1.05rem;
+        /* Typewriter Terminal Window */
+        .typewriter-box {
+            background: rgba(10, 15, 29, 0.85);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 10px;
+            padding: 20px;
             margin-bottom: 30px;
-            max-width: 600px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            font-family: var(--font-code);
+            position: relative;
         }
 
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .terminal-title {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-left: 10px;
+        }
+
+        #typewriter-text {
+            color: var(--text-main);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 1.1em;
+            background-color: var(--neon-cyan);
+            margin-left: 4px;
+            vertical-align: middle;
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Interactive Icon Contact Bar */
         .hero-contact-info {
             display: flex;
-            flex-wrap: wrap;
+            align-items: center;
             gap: 15px;
             margin-bottom: 30px;
         }
 
-        .contact-item {
+        .contact-icon-btn {
+            position: relative;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(16, 24, 48, 0.8);
+            border: 1px solid rgba(0, 240, 255, 0.25);
             display: flex;
             align-items: center;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            color: var(--text-main);
+            justify-content: center;
+            color: var(--neon-cyan);
+            font-size: 1.3rem;
+            text-decoration: none;
+            cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .contact-item i {
-            color: var(--neon-cyan);
+        .contact-icon-btn:hover {
+            border-color: var(--neon-blue);
+            background: rgba(0, 240, 255, 0.15);
+            color: #fff;
+            transform: translateY(-4px);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
         }
 
-        .contact-item:hover {
-            border-color: var(--neon-cyan);
-            transform: translateY(-2px);
+        /* Tooltip style */
+        .contact-icon-btn::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%) translateY(8px);
+            background: rgba(10, 15, 29, 0.95);
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-family: var(--font-code);
+            white-space: nowrap;
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 10;
+        }
+
+        /* Tooltip Arrow */
+        .contact-icon-btn::before {
+            content: '';
+            position: absolute;
+            bottom: 105%;
+            left: 50%;
+            transform: translateX(-50%) translateY(8px);
+            border-width: 6px;
+            border-style: solid;
+            border-color: var(--neon-blue) transparent transparent transparent;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 10;
+        }
+
+        .contact-icon-btn:hover::after,
+        .contact-icon-btn:hover::before {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
         }
 
         .hero-card {
@@ -473,23 +576,34 @@
                 <h1>Guilherme Oliveira Santana</h1>
                 <h2>Tecnologia da Informação</h2>
                 
-                <p>
-                    Profissional focado em suporte técnico de TI, telecomunicações, gestão de infraestrutura e otimização de sistemas. Experiência sólida em campo, manutenção preventiva/corretiva e resolução de problemas tecnológicos complexos.
-                </p>
+                <!-- Terminal Box with Typewriter Effect -->
+                <div class="typewriter-box">
+                    <div class="terminal-header">
+                        <span class="dot dot-red"></span>
+                        <span class="dot dot-yellow"></span>
+                        <span class="dot dot-green"></span>
+                        <span class="terminal-title">intro.sh</span>
+                    </div>
+                    <span id="typewriter-text"></span><span class="cursor"></span>
+                </div>
 
+                <!-- Interactive Icon Bar with Tooltips -->
                 <div class="hero-contact-info">
-                    <div class="contact-item">
+                    <a href="tel:81995860926" class="contact-icon-btn" data-tooltip="(81) 99586-0926" aria-label="Telefone">
                         <i class="fa-solid fa-phone"></i>
-                        <span>(81) 99586-0926</span>
-                    </div>
-                    <div class="contact-item">
+                    </a>
+                    <a href="mailto:gui412@gmail.com" class="contact-icon-btn" data-tooltip="gui412@gmail.com" aria-label="E-mail">
                         <i class="fa-solid fa-envelope"></i>
-                        <span>gui412@gmail.com</span>
-                    </div>
-                    <div class="contact-item">
+                    </a>
+                    <div class="contact-icon-btn" data-tooltip="Jardim Jordão, Jaboatão dos Guararapes - PE" aria-label="Endereço">
                         <i class="fa-solid fa-location-dot"></i>
-                        <span>Jardim Jordão, Jaboatão dos Guararapes - PE</span>
                     </div>
+                    <a href="https://instagram.com/guilhermeeooliveira" target="_blank" rel="noopener noreferrer" class="contact-icon-btn" data-tooltip="@guilhermeeooliveira" aria-label="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://github.com/azuh412" target="_blank" rel="noopener noreferrer" class="contact-icon-btn" data-tooltip="github.com/azuh412" aria-label="GitHub">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
                 </div>
 
                 <div class="extra-badge">
@@ -535,7 +649,7 @@
                     </ul>
                 </div>
 
-                <!-- 33 Alimentos -->
+                <!-- JJ Alimentos -->
                 <div class="timeline-item reveal">
                     <div class="timeline-dot"></div>
                     <div class="timeline-date">Março de 2020 — Maio de 2021 (1 ano e 3 meses)</div>
@@ -661,8 +775,31 @@
         </div>
     </footer>
 
-    <!-- Interactive Canvas Animation JavaScript -->
+    <!-- Interactive Canvas Animation & Typewriter JavaScript -->
     <script>
+        // Typewriter Effect Script
+        const textToType = `Oi! 👋 Meu nome é Guilherme.
+
+Sou formado em Gestão de Tecnologia da Informação e atualmente trabalho como Suporte Técnico de TI.
+
+Paralelamente, estou me dedicando e estudando focado para migrar e conquistar uma oportunidade na área de Inteligência Artificial.`;
+
+        const typewriterElement = document.getElementById('typewriter-text');
+        let index = 0;
+
+        function typeWriter() {
+            if (index < textToType.length) {
+                typewriterElement.textContent += textToType.charAt(index);
+                index++;
+                setTimeout(typeWriter, 35); // Velocidade da digitação (em ms)
+            }
+        }
+
+        // Inicia o efeito ao carregar a página
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(typeWriter, 500); // pequeno atraso antes de começar a digitar
+        });
+
         // Particle Background System
         const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
